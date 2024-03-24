@@ -1,0 +1,148 @@
+Grammar:
+
+Rule 0     S' -> statement
+Rule 1     statement -> expr
+Rule 2     expr -> NUMBER
+Rule 3     expr -> LPAREN expr RPAREN
+Rule 4     expr -> expr TIMES expr  [precedence=left, level=2]
+Rule 5     expr -> expr PLUS expr  [precedence=left, level=1]
+
+Unused terminals:
+
+    ASSIGN
+    DIVIDE
+    NAME
+    MINUS
+
+Terminals, with rules where they appear:
+
+ASSIGN               : 
+DIVIDE               : 
+LPAREN               : 3
+MINUS                : 
+NAME                 : 
+NUMBER               : 2
+PLUS                 : 5
+RPAREN               : 3
+TIMES                : 4
+error                : 
+
+Nonterminals, with rules where they appear:
+
+expr                 : 1 3 4 4 5 5
+statement            : 0
+
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . expr
+    (2) expr -> . NUMBER
+    (3) expr -> . LPAREN expr RPAREN
+    (4) expr -> . expr TIMES expr
+    (5) expr -> . expr PLUS expr
+    NUMBER          shift and go to state 3
+    LPAREN          shift and go to state 4
+
+    statement                      shift and go to state 1
+    expr                           shift and go to state 2
+
+state 1
+
+    (0) S' -> statement .
+
+
+state 2
+
+    (1) statement -> expr .
+    (4) expr -> expr . TIMES expr
+    (5) expr -> expr . PLUS expr
+    $end            reduce using rule 1 (statement -> expr .)
+    TIMES           shift and go to state 5
+    PLUS            shift and go to state 6
+
+
+state 3
+
+    (2) expr -> NUMBER .
+    TIMES           reduce using rule 2 (expr -> NUMBER .)
+    PLUS            reduce using rule 2 (expr -> NUMBER .)
+    $end            reduce using rule 2 (expr -> NUMBER .)
+    RPAREN          reduce using rule 2 (expr -> NUMBER .)
+
+
+state 4
+
+    (3) expr -> LPAREN . expr RPAREN
+    (2) expr -> . NUMBER
+    (3) expr -> . LPAREN expr RPAREN
+    (4) expr -> . expr TIMES expr
+    (5) expr -> . expr PLUS expr
+    NUMBER          shift and go to state 3
+    LPAREN          shift and go to state 4
+
+    expr                           shift and go to state 7
+
+state 5
+
+    (4) expr -> expr TIMES . expr
+    (2) expr -> . NUMBER
+    (3) expr -> . LPAREN expr RPAREN
+    (4) expr -> . expr TIMES expr
+    (5) expr -> . expr PLUS expr
+    NUMBER          shift and go to state 3
+    LPAREN          shift and go to state 4
+
+    expr                           shift and go to state 8
+
+state 6
+
+    (5) expr -> expr PLUS . expr
+    (2) expr -> . NUMBER
+    (3) expr -> . LPAREN expr RPAREN
+    (4) expr -> . expr TIMES expr
+    (5) expr -> . expr PLUS expr
+    NUMBER          shift and go to state 3
+    LPAREN          shift and go to state 4
+
+    expr                           shift and go to state 9
+
+state 7
+
+    (3) expr -> LPAREN expr . RPAREN
+    (4) expr -> expr . TIMES expr
+    (5) expr -> expr . PLUS expr
+    RPAREN          shift and go to state 10
+    TIMES           shift and go to state 5
+    PLUS            shift and go to state 6
+
+
+state 8
+
+    (4) expr -> expr TIMES expr .
+    (4) expr -> expr . TIMES expr
+    (5) expr -> expr . PLUS expr
+    TIMES           reduce using rule 4 (expr -> expr TIMES expr .)
+    PLUS            reduce using rule 4 (expr -> expr TIMES expr .)
+    $end            reduce using rule 4 (expr -> expr TIMES expr .)
+    RPAREN          reduce using rule 4 (expr -> expr TIMES expr .)
+
+
+state 9
+
+    (5) expr -> expr PLUS expr .
+    (4) expr -> expr . TIMES expr
+    (5) expr -> expr . PLUS expr
+    PLUS            reduce using rule 5 (expr -> expr PLUS expr .)
+    $end            reduce using rule 5 (expr -> expr PLUS expr .)
+    RPAREN          reduce using rule 5 (expr -> expr PLUS expr .)
+    TIMES           shift and go to state 5
+
+
+state 10
+
+    (3) expr -> LPAREN expr RPAREN .
+    TIMES           reduce using rule 3 (expr -> LPAREN expr RPAREN .)
+    PLUS            reduce using rule 3 (expr -> LPAREN expr RPAREN .)
+    $end            reduce using rule 3 (expr -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 3 (expr -> LPAREN expr RPAREN .)
