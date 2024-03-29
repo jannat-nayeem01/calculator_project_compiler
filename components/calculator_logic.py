@@ -1,6 +1,7 @@
 def evaluate_expression(expression):
     operator_stack = []
     operand_stack = []
+    postfix_expression = []
 
     precedence = {'+': 2, '*': 1}
 
@@ -19,10 +20,12 @@ def evaluate_expression(expression):
             raise ValueError("Invalid operator")
 
         operand_stack.append(result)
+        postfix_expression.append(operator)
 
     for token in expression:
         if token.isdigit():
             operand_stack.append(int(token))
+            postfix_expression.append(token)
         elif token == '(':
             operator_stack.append(token)
         elif token == ')':
@@ -38,6 +41,7 @@ def evaluate_expression(expression):
     while operator_stack:
         apply_operator(operator_stack, operand_stack)
 
-    return operand_stack[-1]
+    return operand_stack[-1], ' '.join(postfix_expression)
+
 
 
