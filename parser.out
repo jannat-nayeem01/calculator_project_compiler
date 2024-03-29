@@ -9,10 +9,10 @@ Rule 5     expr -> expr PLUS expr  [precedence=left, level=1]
 
 Unused terminals:
 
-    ASSIGN
-    MINUS
-    NAME
     DIVIDE
+    NAME
+    MINUS
+    ASSIGN
 
 Terminals, with rules where they appear:
 

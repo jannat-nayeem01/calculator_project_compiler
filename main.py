@@ -38,14 +38,13 @@ class MainWindow(QMainWindow):
     def calculate(self):
         input_text = self.input_text.text()
         try:
-            # Evaluate the expression and get the result and postfix expression
-            result, postfix_expression = evaluate_expression(input_text)
-            # Display the result
+            result, postfix_expression, prefix_expression = evaluate_expression(input_text)
             self.output_lcd.display(result)
-            # Display the postfix expression in the postfix_label
             self.postfix_display.setText(postfix_expression)
+            self.prefix_display.setText(prefix_expression)
         except Exception as e:
             print(f"Error calculating expression: {e}")
+
             
             
     def clear(self):
