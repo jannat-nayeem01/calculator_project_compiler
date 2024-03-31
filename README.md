@@ -32,7 +32,7 @@ Rule 1     statement -> expr
 Rule 2     expr -> NUMBER
 Rule 3     expr -> LPAREN expr RPAREN
 Rule 4     expr -> expr TIMES expr  [precedence=left, level=2]
-Rule 5     expr -> expr PLUS expr  [precedence=left, level=1]
+Rule 5     expr -> expr PLUS expr  [precedence=left, level=1] Note: level 1 means higher priority
 
 2. 
 Type of the parser:
